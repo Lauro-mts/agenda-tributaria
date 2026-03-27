@@ -26,9 +26,10 @@ function validateEmail(email: string): boolean {
 
 export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
   const [nome, setNome] = useState('')
+  const [empresa, setEmpresa] = useState('')
   const [telefone, setTelefone] = useState('')
   const [email, setEmail] = useState('')
-  const [errors, setErrors] = useState({ nome: false, telefone: false, email: false })
+  const [errors, setErrors] = useState({ nome: false, empresa: false, telefone: false, email: false })
   const [loading, setLoading] = useState(false)
 
   function handlePhoneInput(e: React.FormEvent<HTMLInputElement>) {
@@ -39,6 +40,7 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
     const tel_digits = telefone.replace(/\D/g, '')
     const newErrors = {
       nome: !nome,
+      empresa: !empresa,
       telefone: tel_digits.length < 10,
       email: !validateEmail(email),
     }
@@ -49,7 +51,7 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
 
     const now = new Date()
     const dataHora = now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
-    const payload = { nome, telefone, email, dataHora }
+    const payload = { nome, empresa, telefone, email, dataHora }
 
     try {
       await fetch('/api/inscricao', {
@@ -111,6 +113,14 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
 
       {/* Campos */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
+        <FieldGroup
+          id="empresa"
+          label="Nome da Empresa"
+          placeholder="Sua empresa"
+          value={empresa}
+          onChange={setEmpresa}
+          error={errors.empresa}
+        />
         <FieldGroup
           id="nome"
           label="Nome completo"
