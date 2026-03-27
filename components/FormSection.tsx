@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { FieldGroup } from './FieldGroup'
 
@@ -30,7 +30,6 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState({ nome: false, telefone: false, email: false })
   const [loading, setLoading] = useState(false)
-  const btnRef = useRef<HTMLButtonElement>(null)
 
   function handlePhoneInput(e: React.FormEvent<HTMLInputElement>) {
     setTelefone(maskPhone((e.target as HTMLInputElement).value))
@@ -53,7 +52,6 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
     const payload = { nome, telefone, email, dataHora }
 
     try {
-      // 1) Salvar no Google Sheets via API Route
       await fetch('/api/inscricao', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,7 +60,6 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
 
       onSuccess()
 
-      // 2) Notificação para o organizador via EmailJS (opcional)
       emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
@@ -86,28 +83,25 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
 
   return (
     <div
+      className="animate-fade-down-3"
       style={{
-        background: 'linear-gradient(160deg, rgba(15,37,53,0.97), rgba(10,24,36,0.99))',
+        background: 'rgba(15, 37, 53, 0.95)',
         border: '1px solid var(--border)',
-        borderRadius: '20px',
+        borderTop: 'none',
+        borderRadius: '0 0 20px 20px',
         padding: '32px 28px',
-        animation: 'fadeDown 0.4s ease both',
       }}
     >
-      {/* Header do form */}
-      <div style={{ marginBottom: '28px' }}>
-        <button className="btn-back" onClick={onBack} style={{ marginBottom: '20px' }}>
-          ← Voltar
-        </button>
-        <h2
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: '22px',
-            fontWeight: 600,
-            color: '#fff',
-            marginBottom: '6px',
-          }}
-        >
+      {/* Título */}
+      <div style={{ marginBottom: '24px', textAlign: 'center' }}>
+        <h2 style={{
+          fontFamily: '"Cormorant Garamond", serif',
+          fontSize: '26px',
+          fontWeight: 600,
+          color: 'var(--text)',
+          marginBottom: '6px',
+          lineHeight: 1.2,
+        }}>
           Preencha seus dados
         </h2>
         <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
@@ -125,7 +119,6 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
           onChange={setNome}
           error={errors.nome}
         />
-
         <FieldGroup
           id="telefone"
           label="WhatsApp"
@@ -137,7 +130,6 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
           error={errors.telefone}
           errorMessage="Informe um telefone válido"
         />
-
         <FieldGroup
           id="email"
           label="E-mail"
@@ -151,15 +143,31 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
       </div>
 
       <button
-        ref={btnRef}
         className={`btn-submit ${loading ? 'loading' : ''}`}
         onClick={handleSubmit}
         disabled={loading}
       >
-        {loading ? 'Enviando…' : 'Confirmar inscrição'}
+        {loading ? 'Enviando…' : 'Confirmar inscrição →'}
       </button>
 
-      <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-muted)', marginTop: '14px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+        <button
+          onClick={onBack}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: 'var(--text-muted)',
+            fontSize: '13px',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+            padding: '4px',
+          }}
+        >
+          ← Voltar
+        </button>
+      </div>
+
+      <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-muted)', marginTop: '12px' }}>
         🔒 Seus dados são tratados com sigilo absoluto
       </p>
     </div>
