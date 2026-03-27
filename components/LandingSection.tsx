@@ -50,7 +50,7 @@ export function LandingSection({ onStart }: LandingSectionProps) {
       </div>
 
       {/* Info strip */}
-      <div className="info-strip animate-fade-down-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0' }}>
+      <div className="info-strip animate-fade-down-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '0' }}>
         <div className="info-item" style={{ flexDirection: 'row', padding: '16px 12px' }}>
           <span className="info-icon" style={{ fontSize: '18px' }}>📅</span>
           <div>
@@ -63,13 +63,6 @@ export function LandingSection({ onStart }: LandingSectionProps) {
           <div>
             <div className="info-label">Local</div>
             <div className="info-value" style={{ fontSize: '11px', lineHeight: 1.2 }}>Ágora Tech Park<br />Joinville/SC</div>
-          </div>
-        </div>
-        <div className="info-item" style={{ flexDirection: 'row', padding: '16px 8px' }}>
-          <span className="info-icon" style={{ fontSize: '18px' }}>☕</span>
-          <div>
-            <div className="info-label">Coffee Break</div>
-            <div className="info-value" style={{ fontSize: '12px' }}>8h às 9h</div>
           </div>
         </div>
         <div className="info-item" style={{ flexDirection: 'row', padding: '16px 12px' }}>

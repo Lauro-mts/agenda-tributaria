@@ -60,7 +60,7 @@ export default function Home() {
           )}
 
           <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
-            <img src="/tpz.png" alt="Logo" style={{ height: '48px', opacity: 0.5 }} />
+            <img src="/tpz.png" alt="Logo" style={{ height: '48px', opacity: 0.9 }} />
           </div>
 
         </div>
