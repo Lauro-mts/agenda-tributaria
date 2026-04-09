@@ -1,0 +1,28 @@
+/* Paleta âmbar/dourado — Agenda Tributária Curitiba */
+
+.header h1 {
+  font-size: 20px;
+}
+
+:root {
+  --teal: #b87800;
+  --teal-light: #e8a020;
+  --gold: #d4940f;
+  --gold-light: #f0bc40;
+}
+
+/* Botão submit — âmbar */
+.btn-submit {
+  background: linear-gradient(135deg, #c98a00 0%, #a06800 100%);
+  box-shadow: 0 4px 20px rgba(201, 138, 0, 0.4);
+}
+
+.btn-submit:hover:not(:disabled) {
+  box-shadow: 0 6px 28px rgba(201, 138, 0, 0.55);
+}
+
+/* Focus nos inputs — âmbar */
+.field-input:focus {
+  border-color: rgba(184, 120, 0, 0.6);
+  box-shadow: 0 0 0 3px rgba(184, 120, 0, 0.14);
+}

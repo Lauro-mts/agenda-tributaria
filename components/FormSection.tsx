@@ -8,6 +8,8 @@ interface FormSectionProps {
   onBack: () => void
   onSuccess: () => void
   onToast: (msg: string, isError?: boolean) => void
+  evento?: string
+  apiUrl?: string
 }
 
 function maskPhone(value: string): string {
@@ -24,7 +26,7 @@ function validateEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
+export function FormSection({ onBack, onSuccess, onToast, evento = 'Joinville', apiUrl = '/api/inscricao' }: FormSectionProps) {
   const [nome, setNome] = useState('')
   const [empresa, setEmpresa] = useState('')
   const [telefone, setTelefone] = useState('')
@@ -51,10 +53,10 @@ export function FormSection({ onBack, onSuccess, onToast }: FormSectionProps) {
 
     const now = new Date()
     const dataHora = now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
-    const payload = { nome, empresa, telefone, email, dataHora }
+    const payload = { nome, empresa, telefone, email, dataHora, evento }
 
     try {
-      await fetch('/api/inscricao', {
+      await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

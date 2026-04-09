@@ -1,4 +1,20 @@
-export function Background() {
+interface BackgroundProps {
+  variant?: 'teal' | 'amber'
+}
+
+export function Background({ variant = 'teal' }: BackgroundProps) {
+  const glows = variant === 'amber'
+    ? `
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(201,138,0,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,148,15,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 30% 30% at 60% 55%, rgba(232,160,32,0.08) 0%, transparent 50%)
+      `
+    : `
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(13,122,122,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 30% 30% at 60% 55%, rgba(26,179,179,0.06) 0%, transparent 50%)
+      `
+
   return (
     <div className="fixed inset-0 z-0">
       {/* Base gradient */}
@@ -14,11 +30,7 @@ export function Background() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: `
-            radial-gradient(ellipse 60% 50% at 80% 10%, rgba(13,122,122,0.18) 0%, transparent 60%),
-            radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 55%),
-            radial-gradient(ellipse 30% 30% at 60% 55%, rgba(26,179,179,0.06) 0%, transparent 50%)
-          `,
+          background: glows,
         }}
       />
       {/* Grid lines */}
